@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <script src="{% static 'js/script.js' %}" defer></script>
+    <script src="{% static 'js/valid.js' %}" defer></script>
+<div class="center">
+    <div class="btns">
+        <a class="a1" href="#">creation de compte</a>
+        <a class="a2" href="#">acceder à mon compte</a>
+    </div>
+    <div class="signup-form">
+
+        <!--<div class="header">je n'ai pas de compte</div>-->
+        <div class="signup_error" style="margin-top: 5px;"></div>
+
+        <form name="signupForm" method="POST" onsubmit="return signupValid()">
+            {% csrf_token %}
+            <input type="text" list="nameStudent" placeholder="Name" autocomplete="off">
+            <datalist class="email" id="nameStudent">
+                {% for i in datas %}
+                <option value=" {{i.name}}">
+                {% endfor %}
+            </datalist>
+
+            <input class="lstname" name="telephone" type="text" placeholder="Téléphone" autocomplete="off">
+            <input type="text" list="emailStudent" placeholder="Email">
+            <datalist class="email" id="emailStudent">
+                {% for i in datas %}
+                <option value=" {{i.email}}">
+                {% endfor %}
+            </datalist>
+            <!--<input class="email" name="email" type="text" placeholder="Email or Phone" autocomplete="off">-->
+            <input class="email" name="password" type="password" placeholder="Mot de passe" autocomplete="on">
+            <input type="submit" value="S'inscrire">
+        </form>
+    </div>
+
+    <div class="login-form">
+        <!--<div class="header header1">J'ai un compte</div>-->
+        <form method="POST" action="{% url 'librairie:pageHome' %}">
+             {% csrf_token %}
+            <input class="email" list="emailStudentConnect" placeholder="Email">
+            <datalist class="email" id="emailStudentConnect">
+                {% for i in datas %}
+                <option value=" {{i.email}}">
+                {% endfor %}
+            </datalist>
+            <input class="email" type="password" placeholder="Password">
+            <input type="submit" value="Se connecter">
+        </form>
+    </div>
+</div>
+{% endblock %}
